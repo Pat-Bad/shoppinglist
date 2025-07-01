@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Button, Form } from "react-bootstrap";
+import { Button, Container, Form, FormCheck } from "react-bootstrap";
 
 const Write = () => {
   const [inputValue, setInputValue] = useState("");
@@ -7,6 +7,12 @@ const Write = () => {
   const addToList = () => {
     setItem([...item, inputValue]);
     setInputValue("");
+  };
+
+  const removeFromList = (index) => {
+    const updatedList = [...item];
+    updatedList.splice(index, 1);
+    setItem(updatedList);
   };
 
   return (
@@ -27,25 +33,58 @@ const Write = () => {
             value={inputValue}
           />
           <Button
-            variant="success"
+            variant="warning"
             type="button"
             onClick={addToList}
+            onMouseEnter={(e) => {
+              e.target.style.transform = "scale(1.1)";
+            }}
+            onMouseLeave={(e) => {
+              e.target.style.transform = "scale(1)";
+            }}
           >
             Add
           </Button>
         </Form.Group>
       </Form>
 
-      <ul className="d-flex flex-column align-items-center">
-        {item.map((item, index) => (
-          <li
-            key={index}
-            className="d-flex align-items-center mb-2 text-light"
-          >
-            <span className="me-3">{item}</span>
-          </li>
-        ))}
-      </ul>
+      <Container>
+        <div
+          className="mt-3 border border-1 border-light w-50 mx-auto"
+          style={{
+            borderRadius: "10px",
+            padding: "10px",
+            backgroundColor: "rgba(0, 0, 0, 0.3)",
+            height: "600px",
+          }}
+        >
+          <ul className="d-flex flex-column align-items-center px-3 pt-3">
+            {item.map((item, index) => (
+              <li
+                key={index}
+                className="d-flex align-items-center mb-4 text-light justify-content-between w-100"
+              >
+                <span className="d-flex align-items-center">
+                  <FormCheck className="fs-4 me-3" />
+                  {item}
+                </span>
+                <Button
+                  variant="danger"
+                  onClick={() => removeFromList(index)}
+                  onMouseEnter={(e) => {
+                    e.target.style.transform = "scale(1.1)";
+                  }}
+                  onMouseLeave={(e) => {
+                    e.target.style.transform = "scale(1)";
+                  }}
+                >
+                  Remove
+                </Button>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </Container>
     </>
   );
 };
