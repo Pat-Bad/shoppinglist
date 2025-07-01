@@ -13,12 +13,12 @@ const MyNavbar = () => {
           paddingLeft: 50,
           paddingTop: 20,
           paddingBottom: 20,
-          color: "white",
-          fontWeight: "bold",
           borderBottom: "1px solid white",
         }}
       >
-        <Navbar.Brand>Gettin' those greens!</Navbar.Brand>
+        <Navbar.Brand className="text-light fw-bold">
+          Gettin' those greens!
+        </Navbar.Brand>
       </Container>
     </Navbar>
   );
